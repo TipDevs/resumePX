@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html, body {
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+#root {
+  animation: showRoot 1s ease 0.5ms;
+  scrollbar-width: none;
+}
+@keyframes showRoot {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
