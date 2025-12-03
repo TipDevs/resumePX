@@ -1,0 +1,45 @@
+#preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 3;
+  gap: 20px;
+  padding: 20px;
+}
+#generalPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+#generalPreview > * {
+  font-size: 1.5rem;
+}
+#educationPreview,
+#jobExperiencePreview {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+#educationPreview > ul,
+#jobExperiencePreview > ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+#educationPreview > ul > li,
+#jobExperiencePreview > ul > li{
+  font-size: 1.5rem;
+}
+#educationPreview > ul > li#institution {
+  grid-area: 2 / 1 / 2/ -1;
+}
+#educationPreview > ul > li#wholeSession,
+#jobExperiencePreview ul > li#yearWorked {
+  grid-area: 1/-1;
+}
+#educationPreview > ul > li#certification {
+    grid-area: 1/1/1/3;
+}
