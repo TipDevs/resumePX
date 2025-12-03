@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="40" viewBox="0 0 260 60">
-  <text x="5" y="50" font-size="60" font-family="Times New Roman, serif">
+  <text x="5" y="50" font-size="50" font-family="Times New Roman, serif">
     <tspan fill="#d62828">résumé<tspan fill="#000" font-weight="700">PX</tspan></tspan>
   </text>
-  <line x1="3" y1="60" x2="300" y2="60" stroke="#444" stroke-width="2"/>
+  <line x1="3" y1="60" x2="220" y2="60" stroke="#444" stroke-width="2"/>
 </svg>
