@@ -56,7 +56,7 @@ export default function JobExperience({
               <input
                 type="text"
                 name="employmentYear"
-                value={jobExperience.employmentYear}
+                value={jobExperience.employmentYear.trim()}
                 id="employmentYear"
                 placeholder="Enter employment year"
                 onChange={onChange}
@@ -68,7 +68,7 @@ export default function JobExperience({
               <input
                 type="text"
                 name="endYear"
-                value={jobExperience.endYear}
+                value={jobExperience.endYear.trim()}
                 id="endYear"
                 placeholder="Enter year of leaving job"
                 onChange={onChange}

@@ -62,7 +62,7 @@ export default function Education({
               <input
                 type="text"
                 name="convocationYear"
-                value={education.convocationYear}
+                value={education.convocationYear.trim()}
                 id="convocationYear"
                 placeholder="Enter the year you got admission"
                 onChange={onChange}
@@ -74,7 +74,7 @@ export default function Education({
               <input
                 type="text"
                 name="graduationYear"
-                value={education.graduationYear}
+                value={education.graduationYear.trim()}
                 id="graduationYear"
                 placeholder="Enter the year you graduated"
                 onChange={onChange}

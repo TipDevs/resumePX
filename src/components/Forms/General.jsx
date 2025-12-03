@@ -10,7 +10,7 @@ export default function General({ onChange, generalData }) {
             <input
               type="text"
               name="firstName"
-              value={generalData.firstName}
+              value={generalData.firstName.trim()}
               placeholder="Enter your first name"
               onChange={onChange}
               required
@@ -21,7 +21,7 @@ export default function General({ onChange, generalData }) {
             <input
               type="text"
               name="lastName"
-              value={generalData.lastName}
+              value={generalData.lastName.trim()}
               placeholder="Enter your last name"
               onChange={onChange}
               required
@@ -32,7 +32,7 @@ export default function General({ onChange, generalData }) {
             <input
               type="email"
               name="email"
-              value={generalData.email}
+              value={generalData.email.trim()}
               placeholder="Enter your email address"
               onChange={onChange}
               required
@@ -43,7 +43,7 @@ export default function General({ onChange, generalData }) {
             <input
               type="tel"
               name="phone"
-              value={generalData.phone}
+              value={generalData.phone.trim()}
               placeholder="Enter your phone number"
               onChange={onChange}
               inputMode="numeric"
