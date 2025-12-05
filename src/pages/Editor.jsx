@@ -21,6 +21,7 @@ export default function Editor() {
       company: "",
       employmentYear: "",
       endYear: "",
+      contribution: "",
     },
   };
   const [form, setForm] = useState(formData);
