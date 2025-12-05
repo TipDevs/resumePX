@@ -92,6 +92,22 @@ export default function JobExperience({
                 checked={checked}
               />
             </label>
+            <label htmlFor="contributions">
+              Contribution:{" "}
+              <textarea
+                type="text"
+                name="contributions"
+                id="contributions"
+                placeholder="List your contributions to the company with | seperator e.g: Oversaw ingredient sourcing|Managed Inventory control|Assisted in cost management"
+                onChange={onChange}
+                checked={checked}
+                style={{
+                  height: "7em",
+                  outline: "none",
+                  border: "none",
+                  padding: "5px",
+                }}></textarea>
+            </label>
             <button type="submit">Submit</button>
           </form>
         ) : (
@@ -139,6 +155,18 @@ export default function JobExperience({
                             {checked
                               ? (job.endYear = "Till date")
                               : job.endYear}
+                          </li>
+                          <li style={{ maxWidth: "30ch" }}>
+                            <h6 style={{ display: "inline", fontSize: "1rem" }}>
+                              Contriubtion:
+                            </h6>{" "}
+                            <ul>
+                              {job.contributions
+                                .split("|")
+                                .map((contribution) => (
+                                  <li>{contribution}</li>
+                                ))}
+                            </ul>
                           </li>
                         </ul>
                       </li>
