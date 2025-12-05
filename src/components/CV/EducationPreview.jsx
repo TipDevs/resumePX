@@ -3,8 +3,15 @@ export default function EducationPreview({ storedEducation }) {
     " "
   ) : (
     <div id="educationPreview">
-      <hr style={{ width: "100%" }}/>
       <h4>Education</h4>
+      <hr
+        style={{
+          width: "85%",
+          height: "3px",
+          background: "#000000",
+          alignSelf: "center",
+        }}
+      />
       {storedEducation.map((education) => {
         const wholeSession =
           education.convocationYear + " - " + education.graduationYear;
