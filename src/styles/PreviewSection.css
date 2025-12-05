@@ -43,3 +43,12 @@
 #educationPreview > ul > li#certification {
     grid-area: 1/1/1/3;
 }
+#jobExperiencePreview ul > li#contributions {
+  grid-area: 2/-4/2/-1;
+  padding: 0px 20px;
+  font-size: 1rem;
+}
+#jobExperiencePreview ul > li#contributions > ul {
+  list-style: disc;
+
+}
