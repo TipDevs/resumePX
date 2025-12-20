@@ -6,7 +6,7 @@ export default function JobExperiencePreview({ storedJobs }) {
       <h4>Work Experience</h4>
       <hr
         style={{
-          width: "85%",
+          width: "90%",
           height: "3px",
           background: "#000000",
           alignSelf: "center",
@@ -26,7 +26,7 @@ export default function JobExperiencePreview({ storedJobs }) {
             </li>
             <li id="contributions">
               <ul>
-                {jobs.contributions.split("|").map((contribution) => (
+                {jobs.contributions.split("#").map((contribution) => (
                   <li>{contribution}</li>
                 ))}
               </ul>
