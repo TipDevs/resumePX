@@ -9,6 +9,7 @@ export default function General({ onChange, generalData }) {
             First Name:{" "}
             <input
               type="text"
+              id="firstName"
               name="firstName"
               value={generalData.firstName.trim()}
               placeholder="Enter your first name"
@@ -20,6 +21,7 @@ export default function General({ onChange, generalData }) {
             Last Name:{" "}
             <input
               type="text"
+              id="lastName"
               name="lastName"
               value={generalData.lastName.trim()}
               placeholder="Enter your last name"
@@ -31,6 +33,7 @@ export default function General({ onChange, generalData }) {
             Email:{" "}
             <input
               type="email"
+              id="email"
               name="email"
               value={generalData.email.trim()}
               placeholder="Enter your email address"
@@ -42,6 +45,7 @@ export default function General({ onChange, generalData }) {
             Phone Number:{" "}
             <input
               type="tel"
+              id="phone"
               name="phone"
               value={generalData.phone.trim()}
               placeholder="Enter your phone number"
@@ -53,21 +57,23 @@ export default function General({ onChange, generalData }) {
             Home Address:{" "}
             <input
               type="text"
+              id="address"
               name="address"
               value={generalData.address}
               placeholder="Enter your home address"
               onChange={onChange}
             />
           </label>
-          <label htmlFor="address">
+          <label htmlFor="description">
             Description:{" "}
             <textarea
               type="text"
+              id="description"
               name="description"
               value={generalData.description}
               placeholder="Write about yourself..."
               onChange={onChange}
-              style={{height: "7em", outline: "none", border: "none", padding: "5px"}}></textarea>
+              style={{maxHeight: "7em", outline: "none", border: "none", padding: "5px", maxWidth: "552.500px",}}></textarea>
           </label>
         </form>
       </section>
