@@ -16,12 +16,20 @@ export default function Editor() {
       institution: "",
       convocationYear: "",
       graduationYear: "",
+      id() {
+        const generateId = this.certification + this.graduationYear;
+        return generateId.split(" ").join("");
+      },
     },
     jobExperience: {
       company: "",
       employmentYear: "",
       endYear: "",
-      contribution: "",
+      contributions: "",
+      id() {
+        const generateId = this.company + this.employmentYear;
+        return generateId.split(" ").join("");
+      },
     },
   };
   const [form, setForm] = useState(formData);
@@ -51,7 +59,13 @@ export default function Editor() {
       }));
     },
     addNewEducation(callBack) {
-      setStoredEducation((prev) => [...prev, { ...form.education }]);
+      setStoredEducation((prev) => [
+        ...prev,
+        {
+          ...form.education,
+          id: form.education.id(),
+        },
+      ]);
       setForm((prev) => ({
         ...prev,
         education: {
@@ -60,7 +74,11 @@ export default function Editor() {
         },
       }));
       callBack();
-      console.log(Array.isArray(storedEducation));
+    },
+    deleteEducation(id) {
+      setStoredEducation((prev) =>
+        prev.filter((education) => education.id !== id)
+      );
     },
     // method(s) which handle job experience form explicitly
     jobExperienceFormInput(e) {
@@ -74,7 +92,10 @@ export default function Editor() {
       }));
     },
     addNewJob(callBack) {
-      setStoredJobs((prev) => [...prev, { ...form.jobExperience }]);
+      setStoredJobs((prev) => [
+        ...prev,
+        { ...form.jobExperience, id: form.jobExperience.id() },
+      ]);
       setForm((prev) => ({
         ...prev,
         jobExperience: {
@@ -83,6 +104,9 @@ export default function Editor() {
         },
       }));
       callBack();
+    },
+    deleteJobExperience(id) {
+      setStoredJobs((prev) => prev.filter((job) => job.id !== id));
     },
 
     // globally used method
@@ -123,7 +147,11 @@ export default function Editor() {
         storedEducation={storedEducation}
         storedJobs={storedJobs}
       />
-      <PreviewSection {...form} storedEducation={storedEducation} storedJobs={storedJobs} />
+      <PreviewSection
+        {...form}
+        storedEducation={storedEducation}
+        storedJobs={storedJobs}
+      />
     </>
   );
 }
