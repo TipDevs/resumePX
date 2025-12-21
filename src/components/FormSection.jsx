@@ -13,6 +13,8 @@ export default function FormSection({storedEducation, storedJobs, eventHandler, 
         onChange={eventHandler.educationFormInput}
         addNewEducation={eventHandler.addNewEducation}
         cancelForm={eventHandler.cancelForm}
+        deleteEducation={eventHandler.deleteEducation}
+        editEducation={eventHandler.editEducation}
       />
       <JobExperience
         jobExperience={props.jobExperience}
@@ -20,6 +22,8 @@ export default function FormSection({storedEducation, storedJobs, eventHandler, 
         onChange={eventHandler.jobExperienceFormInput}
         addNewJob={eventHandler.addNewJob}
         cancelForm={eventHandler.cancelForm}
+        deleteJobExperience={eventHandler.deleteJobExperience}
+        editJobExperience={eventHandler.editJobExperience}
       />
     </section>
   );
