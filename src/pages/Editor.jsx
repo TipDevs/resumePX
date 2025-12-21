@@ -17,8 +17,7 @@ export default function Editor() {
       convocationYear: "",
       graduationYear: "",
       id() {
-        const generateId = this.certification + this.graduationYear;
-        return generateId.split(" ").join("");
+        return crypto.randomUUID();
       },
     },
     jobExperience: {
@@ -27,8 +26,7 @@ export default function Editor() {
       endYear: "",
       contributions: "",
       id() {
-        const generateId = this.company + this.employmentYear;
-        return generateId.split(" ").join("");
+        return crypto.randomUUID();
       },
     },
   };
@@ -58,7 +56,7 @@ export default function Editor() {
         },
       }));
     },
-    addNewEducation(callBack) {
+    addNewEducation({ callBack }) {
       setStoredEducation((prev) => [
         ...prev,
         {
@@ -79,6 +77,16 @@ export default function Editor() {
       setStoredEducation((prev) =>
         prev.filter((education) => education.id !== id)
       );
+    },
+    editEducation({ educationToBeEdit, callBack }) {
+      setStoredEducation((prev) =>
+        prev.map((education) =>
+          education.id === educationToBeEdit.id
+            ? (education = educationToBeEdit)
+            : education
+        )
+      );
+      callBack();
     },
     // method(s) which handle job experience form explicitly
     jobExperienceFormInput(e) {
