@@ -6,15 +6,24 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import useToggleForm from "../../Hooks/toggleForm";
+import JobForm from "./JobForm/FormComponent";
 export default function JobExperience({
   cancelForm,
   onChange,
   storedJobs,
   addNewJob,
   jobExperience,
+  deleteJobExperience,
+  editJobExperience,
 }) {
-  const { showForm, toggleForm } = useToggleForm(false);
+  const {
+    showNewEntryForm,
+    toggleNewEntryForm,
+    showEditEntryForm,
+    toggleEditEntryForm,
+  } = useToggleForm(false);
   const [checked, setChecked] = useState(false);
+  const [jobToBeEdit, setJobToBeEdit] = useState(null);
   const onChecked = () => {
     setChecked(!checked);
   };
@@ -22,94 +31,36 @@ export default function JobExperience({
     <>
       <section id="jobExperience">
         <h2>Job Experience</h2>
-        {showForm ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              addNewJob(toggleForm);
-              e.target.reset();
+        {showNewEntryForm ? (
+          <JobForm
+            jobExperience={jobExperience}
+            toggler={toggleNewEntryForm}
+            cancelForm={cancelForm}
+            onChange={onChange}
+            checked={checked}
+            onChecked={onChecked}
+            callback={() => {
+              addNewJob({ callBack: toggleNewEntryForm });
+            }}></JobForm>
+        ) : showEditEntryForm ? (
+          <JobForm
+            jobExperience={jobToBeEdit}
+            callback={() => {
+              editJobExperience({
+                jobToBeEdit: jobToBeEdit,
+                callBack: toggleEditEntryForm,
+              });
             }}
-            id="jobExperienceForm">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              size="xl"
-              onClick={(e) => {
-                const targetElement = e.currentTarget;
-                cancelForm(targetElement, toggleForm);
-              }}
-              style={{ cursor: "pointer" }}
-            />
-            <label htmlFor="companyName">
-              Company Name:{" "}
-              <input
-                type="text"
-                name="company"
-                value={jobExperience.company}
-                id="companyName"
-                placeholder="Enter the name of company worked for..."
-                onChange={onChange}
-                required
-              />
-            </label>
-            <label htmlFor="employmentYear">
-              Employment Year:{" "}
-              <input
-                type="text"
-                name="employmentYear"
-                value={jobExperience.employmentYear.trim()}
-                id="employmentYear"
-                placeholder="Enter employment year"
-                onChange={onChange}
-                required
-              />
-            </label>
-            <label htmlFor="endYear">
-              End Year:{" "}
-              <input
-                type="text"
-                name="endYear"
-                value={jobExperience.endYear.trim()}
-                id="endYear"
-                placeholder="Enter year of leaving job"
-                onChange={onChange}
-                disabled={checked ? true : false}
-                required
-              />
-            </label>
-            <label
-              htmlFor="stillWorking"
-              style={{
-                flexDirection: "row",
-                gap: "4px",
-                alignItems: "center",
-              }}>
-              Still working here?{" "}
-              <input
-                type="checkbox"
-                name="stillWorking"
-                id="stillWorking"
-                onChange={onChecked}
-                checked={checked}
-              />
-            </label>
-            <label htmlFor="contributions">
-              Contribution:{" "}
-              <textarea
-                type="text"
-                name="contributions"
-                id="contributions"
-                placeholder="List your contributions to the company with | seperator e.g: Oversaw ingredient sourcing|Managed Inventory control|Assisted in cost management"
-                onChange={onChange}
-                checked={checked}
-                style={{
-                  height: "7em",
-                  outline: "none",
-                  border: "none",
-                  padding: "5px",
-                }}></textarea>
-            </label>
-            <button type="submit">Submit</button>
-          </form>
+            checked={checked}
+            onChecked={onChecked}
+            toggler={toggleEditEntryForm}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setJobToBeEdit((prev) => ({
+                ...prev,
+                [name]: value,
+              }));
+            }}></JobForm>
         ) : (
           <div id="jobs_list_table">
             <div id="jobs_list">
@@ -123,9 +74,7 @@ export default function JobExperience({
               ) : (
                 storedJobs.map((job) => {
                   return (
-                    <ul
-                      key={job.company + job.employmentYear}
-                      id={job.company + job.employmentYear}>
+                    <ul key={job.id}>
                       <li className="info">
                         <ul>
                           <li>
@@ -135,9 +84,12 @@ export default function JobExperience({
                             {job.company}{" "}
                             <FontAwesomeIcon
                               icon={faEdit}
+                              id={job.id}
                               size="xl"
                               onClick={(e) => {
-                                const targetElement = e.currentTarget;
+                                e.currentTarget;
+                                setJobToBeEdit(() => job);
+                                toggleEditEntryForm();
                               }}
                               style={{ cursor: "pointer", color: "#fee2d8ff" }}
                             />
@@ -162,9 +114,11 @@ export default function JobExperience({
                             </h6>{" "}
                             <ul>
                               {job.contributions
-                                .split("|")
+                                .split("#")
                                 .map((contribution) => (
-                                  <li>{contribution}</li>
+                                  <li key={job.company + contribution}>
+                                    {contribution}
+                                  </li>
                                 ))}
                             </ul>
                           </li>
@@ -175,7 +129,8 @@ export default function JobExperience({
                           icon={faCircleXmark}
                           size="xl"
                           onClick={(e) => {
-                            const targetElement = e.currentTarget;
+                            e.currentTarget;
+                            deleteJobExperience(job.id);
                           }}
                           style={{ cursor: "pointer", color: "#fee2d8ff" }}
                         />
@@ -185,7 +140,7 @@ export default function JobExperience({
                 })
               )}
             </div>
-            <button onClick={toggleForm}>Add Job</button>
+            <button onClick={toggleNewEntryForm}>Add Job</button>
           </div>
         )}
       </section>
