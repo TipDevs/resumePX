@@ -1,7 +1,5 @@
 export default function EducationPreview({ storedEducation }) {
-  return storedEducation.length <= 0 ? (
-    " "
-  ) : (
+  return storedEducation.length <= 0 ? null : (
     <div id="educationPreview">
       <h4>Education</h4>
       <hr
@@ -16,9 +14,7 @@ export default function EducationPreview({ storedEducation }) {
         const wholeSession =
           education.convocationYear + " - " + education.graduationYear;
         return (
-          <ul
-            id={education.certification + education.convocationYear}
-            key={education.certification + education.convocationYear}>
+          <ul key={education.id + "education"}>
             <li id="certification">
               <h5>{education.certification}</h5>
             </li>

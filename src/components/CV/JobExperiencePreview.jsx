@@ -1,6 +1,6 @@
 export default function JobExperiencePreview({ storedJobs }) {
   return storedJobs.length <= 0 ? (
-    " "
+    null
   ) : (
     <div id="jobExperiencePreview">
       <h4>Work Experience</h4>
@@ -12,22 +12,20 @@ export default function JobExperiencePreview({ storedJobs }) {
           alignSelf: "center",
         }}
       />
-      {storedJobs.map((jobs) => {
-        const yearWorked = jobs.employmentYear + " - " + jobs.endYear;
+      {storedJobs.map((job) => {
+        const yearWorked = job.employmentYear + " - " + job.endYear;
         return (
-          <ul
-            id={jobs.company + jobs.employmentYear}
-            key={jobs.company + jobs.employmentYear}>
+          <ul key={job.id + "job"}>
             <li id="company">
-              <h5>{jobs.company}</h5>
+              <h5>{job.company}</h5>
             </li>
             <li id="yearWorked">
               <p>{yearWorked}</p>
             </li>
             <li id="contributions">
               <ul>
-                {jobs.contributions.split("#").map((contribution) => (
-                  <li>{contribution}</li>
+                {job.contributions.split("#").map((contribution) => (
+                  <li key={job.id + contribution}>{contribution}</li>
                 ))}
               </ul>
             </li>
