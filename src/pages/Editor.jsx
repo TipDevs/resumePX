@@ -99,7 +99,7 @@ export default function Editor() {
         },
       }));
     },
-    addNewJob(callBack) {
+    addNewJob({ callBack }) {
       setStoredJobs((prev) => [
         ...prev,
         { ...form.jobExperience, id: form.jobExperience.id() },
@@ -116,7 +116,14 @@ export default function Editor() {
     deleteJobExperience(id) {
       setStoredJobs((prev) => prev.filter((job) => job.id !== id));
     },
-
+    editJobExperience({ jobToBeEdit, callBack }) {
+      setStoredJobs((prev) =>
+        prev.map((job) =>
+          job.id === jobToBeEdit.id ? (job = jobToBeEdit) : job
+        )
+      );
+      callBack();
+    },
     // globally used method
     cancelForm(target, callBack) {
       const parentElement = target.parentElement;
