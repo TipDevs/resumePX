@@ -73,7 +73,14 @@ export default function General({ onChange, generalData }) {
               value={generalData.description}
               placeholder="Write about yourself..."
               onChange={onChange}
-              style={{maxHeight: "7em", outline: "none", border: "none", padding: "5px", maxWidth: "552.500px",}}></textarea>
+              style={{
+                maxHeight: "7em",
+                height: "7em",
+                outline: "none",
+                border: "none",
+                padding: "5px",
+                maxWidth: "510.500px",
+              }}></textarea>
           </label>
         </form>
       </section>
