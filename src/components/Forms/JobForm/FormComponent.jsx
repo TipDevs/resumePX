@@ -7,7 +7,7 @@ export default function JobForm({
   onChange,
   cancelForm,
   checked,
-  onChecked
+  onChecked,
 }) {
   return (
     <>
@@ -90,10 +90,12 @@ export default function JobForm({
             placeholder="List your contributions to the company with # seperator e.g: Oversaw ingredient sourcing#Managed Inventory control#Assisted in cost management"
             onChange={onChange}
             style={{
+              maxHeight: "7em",
               height: "7em",
               outline: "none",
               border: "none",
               padding: "5px",
+              maxWidth: "510.500px",
             }}></textarea>
         </label>
         <button type="submit">Submit</button>
