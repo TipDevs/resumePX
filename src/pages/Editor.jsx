@@ -1,7 +1,7 @@
 import FormSection from "../components/FormSection";
 import PreviewSection from "../components/PreviewSection";
 import { useState } from "react";
-export default function Editor() {
+export default function Editor({contentRef}) {
   const formData = {
     generalData: {
       firstName: "",
@@ -175,6 +175,7 @@ export default function Editor() {
         {...form}
         storedEducation={storedEducation}
         storedJobs={storedJobs}
+        contentRef={contentRef}
       />
     </>
   );
