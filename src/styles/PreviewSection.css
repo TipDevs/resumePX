@@ -6,49 +6,59 @@
   gap: 20px;
   padding: 20px;
 }
-#generalPreview {
+#CV {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#CV #generalPreview {
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1px;
 }
-#generalPreview > * {
+#CV #generalPreview > * {
   font-size: 1.5rem;
 }
-#educationPreview,
-#jobExperiencePreview {
+#CV #generalPreview p#description {
+    max-width: 54ch;
+  }
+#CV #educationPreview,
+#CV #jobExperiencePreview,
+#CV #skillsPreview {
   width: 80%;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-#educationPreview > ul,
-#jobExperiencePreview > ul {
+#CV #educationPreview > ul,
+#CV #jobExperiencePreview > ul {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5px;
 }
-#educationPreview > ul > li,
-#jobExperiencePreview > ul > li{
+#CV #educationPreview > ul > li,
+#CV #jobExperiencePreview > ul > li{
   font-size: 1.5rem;
 }
-#educationPreview > ul > li#institution {
+#CV #educationPreview > ul > li#institution {
   grid-area: 2 / 1 / 2/ -1;
 }
-#educationPreview > ul > li#wholeSession,
-#jobExperiencePreview ul > li#yearWorked {
+#CV #educationPreview > ul > li#wholeSession,
+#CV #jobExperiencePreview ul > li#yearWorked {
   grid-area: 1/-1;
 }
-#educationPreview > ul > li#certification {
+#CV #educationPreview > ul > li#certification {
     grid-area: 1/1/1/3;
 }
-#jobExperiencePreview ul > li#contributions {
+#CV #jobExperiencePreview ul > li#contributions {
   grid-area: 2/1/3/5;
   padding: 0px 20px;
   font-size: 1rem;
 }
-#jobExperiencePreview ul > li#contributions > ul {
+#CV #jobExperiencePreview ul > li#contributions > ul {
   list-style: disc;
 
 }
@@ -57,14 +67,17 @@
   #preview {
     padding: 5px;
   }
-  #generalPreview > * {
+  #CV #generalPreview > * {
     font-size: 1rem;
   }
-  #educationPreview > ul > li,
-#jobExperiencePreview > ul > li {
+  #CV #educationPreview > ul > li,
+ #CV #jobExperiencePreview > ul > li {
   font-size: 1rem;
 }
-  #jobExperiencePreview ul > li#contributions {
+  #CV #jobExperiencePreview ul > li#contributions {
     font-size: 0.8rem;
+  }
+  #CV #generalPreview p#description {
+    max-width: 40ch;
   }
 }
