@@ -1,6 +1,7 @@
 import General from "./Forms/General";
 import Education from "./Forms/Education";
 import JobExperience from "./Forms/JobExperience";
+import Skills from "./Forms/Skills";
 import "../styles/FormSection.css";
 export default function FormSection({storedEducation, storedJobs, eventHandler, ...props }) {
   return (
@@ -25,6 +26,7 @@ export default function FormSection({storedEducation, storedJobs, eventHandler, 
         deleteJobExperience={eventHandler.deleteJobExperience}
         editJobExperience={eventHandler.editJobExperience}
       />
+      <Skills skills={props.skills} onChange={eventHandler.skillFormInput}/>
     </section>
   );
 }
