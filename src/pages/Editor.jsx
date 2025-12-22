@@ -29,6 +29,7 @@ export default function Editor() {
         return crypto.randomUUID();
       },
     },
+    skills: "",
   };
   const [form, setForm] = useState(formData);
   const [storedEducation, setStoredEducation] = useState([]);
@@ -123,6 +124,14 @@ export default function Editor() {
         )
       );
       callBack();
+    },
+    skillFormInput(e) {
+      const { name, value } = e.target;
+      setForm((prev) => ({
+        ...prev,
+        [name] : value
+      })
+      );
     },
     // globally used method
     cancelForm(target, callBack) {
