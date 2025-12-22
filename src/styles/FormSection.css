@@ -9,9 +9,9 @@
 }
 section#general,
 section#education,
-section#jobExperience {
+section#jobExperience,
+section#skills {
   height: fit-content;
-  /* border: 3px solid #000000bc; */
   background-color: #fee2d8ff;
   border-radius: 5px;
   display: flex;
