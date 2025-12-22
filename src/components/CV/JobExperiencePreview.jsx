@@ -3,7 +3,7 @@ export default function JobExperiencePreview({ storedJobs }) {
     null
   ) : (
     <div id="jobExperiencePreview">
-      <h4>Work Experience</h4>
+      <h4 style={{color: "green"}}>Work Experience</h4>
       <hr
         style={{
           width: "90%",

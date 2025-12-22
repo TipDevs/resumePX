@@ -1,7 +1,7 @@
 export default function EducationPreview({ storedEducation }) {
   return storedEducation.length <= 0 ? null : (
     <div id="educationPreview">
-      <h4>Education</h4>
+      <h4 style={{color: "green"}}>Education</h4>
       <hr
         style={{
           width: "85%",
