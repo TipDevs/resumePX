@@ -81,3 +81,22 @@
     max-width: 40ch;
   }
 }
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #CV,
+  #CV * {
+    visibility: visible;
+  }
+  #CV {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+@page {
+  size: A4;
+  margin: 20mm;
+}
