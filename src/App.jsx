@@ -6,7 +6,7 @@ function App() {
   const contentRef = useRef();
   const reactToPrintFn = useReactToPrint({
     contentRef,
-    documentTitle: document.querySelector("#fullName").textContent || "mycv",
+    documentTitle:"mycv",
   });
   return (
     <>
