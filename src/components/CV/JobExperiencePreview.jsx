@@ -1,9 +1,7 @@
 export default function JobExperiencePreview({ storedJobs }) {
-  return storedJobs.length <= 0 ? (
-    null
-  ) : (
+  return storedJobs.length <= 0 ? null : (
     <div id="jobExperiencePreview">
-      <h4 style={{color: "green"}}>Work Experience</h4>
+      <h4 style={{ color: "green" }}>Work Experience</h4>
       <hr
         style={{
           width: "90%",
@@ -13,7 +11,9 @@ export default function JobExperiencePreview({ storedJobs }) {
         }}
       />
       {storedJobs.map((job) => {
-        const yearWorked = job.employmentYear + " - " + job.endYear;
+        const yearWorked =
+          job.employmentYear +
+          (job.stillWorking ? "" : " - " + job.endYear);
         return (
           <ul key={job.id + "job"}>
             <li id="company">
