@@ -1,7 +1,7 @@
 import FormSection from "../components/FormSection";
 import PreviewSection from "../components/PreviewSection";
 import { useState } from "react";
-export default function Editor({contentRef}) {
+export default function Editor({ contentRef }) {
   const formData = {
     generalData: {
       firstName: "",
@@ -22,12 +22,14 @@ export default function Editor({contentRef}) {
     },
     jobExperience: {
       company: "",
+      contributions: "",
       employmentYear: "",
       endYear: "",
-      contributions: "",
       id() {
         return crypto.randomUUID();
       },
+      location: "",
+      stillWorking: false,
     },
     skills: "",
   };
@@ -100,6 +102,16 @@ export default function Editor({contentRef}) {
         },
       }));
     },
+    stillWorkingCheckedForNewJob() {
+      setForm((prev) => ({
+        ...prev,
+        jobExperience: {
+          ...prev.jobExperience,
+          stillWorking: !prev.jobExperience.stillWorking,
+          endYear: "",
+        },
+      }))
+    },
     addNewJob({ callBack }) {
       setStoredJobs((prev) => [
         ...prev,
@@ -129,9 +141,8 @@ export default function Editor({contentRef}) {
       const { name, value } = e.target;
       setForm((prev) => ({
         ...prev,
-        [name] : value
-      })
-      );
+        [name]: value,
+      }));
     },
     // globally used method
     cancelForm(target, callBack) {
