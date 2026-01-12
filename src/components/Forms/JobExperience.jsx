@@ -10,6 +10,7 @@ import JobForm from "./JobForm/FormComponent";
 export default function JobExperience({
   cancelForm,
   onChange,
+  stillWorkingCheckedForNewJob,
   storedJobs,
   addNewJob,
   jobExperience,
@@ -22,11 +23,7 @@ export default function JobExperience({
     showEditEntryForm,
     toggleEditEntryForm,
   } = useToggleForm(false);
-  const [checked, setChecked] = useState(false);
   const [jobToBeEdit, setJobToBeEdit] = useState(null);
-  const onChecked = () => {
-    setChecked(!checked);
-  };
   return (
     <>
       <section id="jobExperience">
@@ -37,8 +34,8 @@ export default function JobExperience({
             toggler={toggleNewEntryForm}
             cancelForm={cancelForm}
             onChange={onChange}
-            checked={checked}
-            onChecked={onChecked}
+            checked={jobExperience.stillWorking}
+            onChecked={stillWorkingCheckedForNewJob}
             callback={() => {
               addNewJob({ callBack: toggleNewEntryForm });
             }}></JobForm>
@@ -51,8 +48,13 @@ export default function JobExperience({
                 callBack: toggleEditEntryForm,
               });
             }}
-            checked={checked}
-            onChecked={onChecked}
+            checked={jobToBeEdit.stillWorking}
+            onChecked={() => {
+              setJobToBeEdit((prev) => ({
+                ...prev,
+                stillWorking: !prev.stillWorking,
+              }));
+            }}
             toggler={toggleEditEntryForm}
             onChange={(e) => {
               const { name, value } = e.target;
@@ -100,27 +102,30 @@ export default function JobExperience({
                             </h6>{" "}
                             {job.employmentYear}
                           </li>
-                          <li>
-                            <h6 style={{ display: "inline", fontSize: "1rem" }}>
-                              End Year:
-                            </h6>{" "}
-                            {checked
-                              ? (job.endYear = "Till date")
-                              : job.endYear}
-                          </li>
+                          {job.stillWorking ? null : (
+                            <li>
+                              <h6
+                                style={{ display: "inline", fontSize: "1rem" }}>
+                                End Year:
+                              </h6>{" "}
+                              {job.endYear}
+                            </li>
+                          )}
                           <li style={{ maxWidth: "30ch" }}>
                             <h6 style={{ display: "inline", fontSize: "1rem" }}>
                               Contriubtion:
                             </h6>{" "}
-                            <ul>
-                              {job.contributions
-                                .split("#")
-                                .map((contribution) => (
-                                  <li key={job.company + contribution}>
-                                    {contribution}
-                                  </li>
-                                ))}
-                            </ul>
+                            <details>
+                              <ul>
+                                {job.contributions
+                                  .split("#")
+                                  .map((contribution) => (
+                                    <li key={job.company + contribution}>
+                                      {contribution}
+                                    </li>
+                                  ))}
+                              </ul>
+                            </details>
                           </li>
                         </ul>
                       </li>
