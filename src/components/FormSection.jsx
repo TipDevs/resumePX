@@ -21,6 +21,7 @@ export default function FormSection({storedEducation, storedJobs, eventHandler, 
         jobExperience={props.jobExperience}
         storedJobs={storedJobs}
         onChange={eventHandler.jobExperienceFormInput}
+        stillWorkingCheckedForNewJob={eventHandler.stillWorkingCheckedForNewJob}
         addNewJob={eventHandler.addNewJob}
         cancelForm={eventHandler.cancelForm}
         deleteJobExperience={eventHandler.deleteJobExperience}
