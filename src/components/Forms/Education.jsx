@@ -52,7 +52,7 @@ export default function Education({educationFormat}) {
                             <h6 style={{ display: "inline", fontSize: "1rem" }}>
                               Admission Year:
                             </h6>{" "}
-                            {education.convocationYear}
+                            {education.admissionYear}
                           </li>
                           <li>
                             <h6 style={{ display: "inline", fontSize: "1rem" }}>
