@@ -1,72 +1,19 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBriefcase,
   faCircleXmark,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import useToggleForm from "../../Hooks/toggleForm";
-import JobForm from "./JobForm/FormComponent";
-export default function JobExperience({
-  cancelForm,
-  onChange,
-  stillWorkingCheckedForNewJob,
-  storedJobs,
-  addNewJob,
-  jobExperience,
-  deleteJobExperience,
-  editJobExperience,
-}) {
-  const {
-    showNewEntryForm,
-    toggleNewEntryForm,
-    showEditEntryForm,
-    toggleEditEntryForm,
-  } = useToggleForm(false);
-  const [jobToBeEdit, setJobToBeEdit] = useState(null);
+import JobForm from "./JobForm/FormComponent"
+export default function JobExperience({jobFormat}) {
   return (
     <>
       <section id="jobExperience">
         <h2>Job Experience</h2>
-        {showNewEntryForm ? (
-          <JobForm
-            jobExperience={jobExperience}
-            toggler={toggleNewEntryForm}
-            cancelForm={cancelForm}
-            onChange={onChange}
-            checked={jobExperience.stillWorking}
-            onChecked={stillWorkingCheckedForNewJob}
-            callback={() => {
-              addNewJob({ callBack: toggleNewEntryForm });
-            }}></JobForm>
-        ) : showEditEntryForm ? (
-          <JobForm
-            jobExperience={jobToBeEdit}
-            callback={() => {
-              editJobExperience({
-                jobToBeEdit: jobToBeEdit,
-                callBack: toggleEditEntryForm,
-              });
-            }}
-            checked={jobToBeEdit.stillWorking}
-            onChecked={() => {
-              setJobToBeEdit((prev) => ({
-                ...prev,
-                stillWorking: !prev.stillWorking,
-              }));
-            }}
-            toggler={toggleEditEntryForm}
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setJobToBeEdit((prev) => ({
-                ...prev,
-                [name]: value,
-              }));
-            }}></JobForm>
-        ) : (
+        {jobFormat.formMode === "off" ? (
           <div id="jobs_list_table">
             <div id="jobs_list">
-              {storedJobs.length === 0 ? (
+              {jobFormat.storedJobs.length === 0 ? (
                 <FontAwesomeIcon
                   icon={faBriefcase}
                   beatFade
@@ -74,7 +21,7 @@ export default function JobExperience({
                   style={{ color: "#da6752", alignSelf: "center" }}
                 />
               ) : (
-                storedJobs.map((job) => {
+                jobFormat.storedJobs.map((job) => {
                   return (
                     <ul key={job.id}>
                       <li className="info">
@@ -88,11 +35,7 @@ export default function JobExperience({
                               icon={faEdit}
                               id={job.id}
                               size="xl"
-                              onClick={(e) => {
-                                e.currentTarget;
-                                setJobToBeEdit(() => job);
-                                toggleEditEntryForm();
-                              }}
+                              onClick={() => {jobFormat.editJob(job.id)}}
                               style={{ cursor: "pointer", color: "#fee2d8ff" }}
                             />
                           </li>
@@ -133,10 +76,7 @@ export default function JobExperience({
                         <FontAwesomeIcon
                           icon={faCircleXmark}
                           size="xl"
-                          onClick={(e) => {
-                            e.currentTarget;
-                            deleteJobExperience(job.id);
-                          }}
+                          onClick={() => {jobFormat.deleteJob(job.id)}}
                           style={{ cursor: "pointer", color: "#fee2d8ff" }}
                         />
                       </li>
@@ -145,9 +85,9 @@ export default function JobExperience({
                 })
               )}
             </div>
-            <button onClick={toggleNewEntryForm}>Add Job</button>
+            <button onClick={jobFormat.addNewJob}>Add Job</button>
           </div>
-        )}
+        ) : (<JobForm jobFormat={jobFormat}/>)}
       </section>
     </>
   );
