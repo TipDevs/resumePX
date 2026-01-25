@@ -1,4 +1,4 @@
-export default function Skills({onChange, skills}) {
+export default function Skills({skillsFormat}) {
   return (
     <section id="skills">
       <form action="">
@@ -8,9 +8,9 @@ export default function Skills({onChange, skills}) {
             type="text"
             id="skills"
             name="skills"
-            value={skills}
+            value={skillsFormat.skillsForm}
             placeholder="List your skills with # seperator e.g Communication skill#JavaScript#Recipe Management"
-            onChange={onChange}
+            onChange={skillsFormat.handleInputChange}
             style={{
               maxHeight: "7em",
               height: "4em",
