@@ -1,30 +1,16 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function JobForm({
-  jobExperience,
-  callback,
-  toggler,
-  onChange,
-  cancelForm,
-  checked,
-  onChecked,
-}) {
+export default function JobForm({jobFormat}) {
+  const jobForm = jobFormat.jobForm;
   return (
     <>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          callback();
-          e.target.reset();
-        }}
+        onSubmit={jobFormat.onSubmit}
         id="jobExperienceForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
           size="xl"
-          onClick={(e) => {
-            const targetElement = e.currentTarget;
-            cancelForm(targetElement, toggler);
-          }}
+          onClick={jobFormat.cancelForm}
           style={{ cursor: "pointer" }}
         />
         <label htmlFor="companyName">
@@ -32,10 +18,10 @@ export default function JobForm({
           <input
             type="text"
             name="company"
-            value={jobExperience.company}
+            value={jobForm.company}
             id="companyName"
             placeholder="Enter the name of company worked for..."
-            onChange={onChange}
+            onChange={jobFormat.handleInputChange}
             required
           />
         </label>
@@ -44,10 +30,10 @@ export default function JobForm({
           <input
             type="text"
             name="employmentYear"
-            value={jobExperience.employmentYear.trim()}
+            value={jobForm.employmentYear}
             id="employmentYear"
             placeholder="Enter employment year"
-            onChange={onChange}
+            onChange={jobFormat.handleInputChange}
             required
           />
         </label>
@@ -56,11 +42,11 @@ export default function JobForm({
           <input
             type="text"
             name="endYear"
-            value={jobExperience.endYear.trim()}
+            value={jobForm.endYear}
             id="endYear"
             placeholder="Enter year of leaving job"
-            onChange={onChange}
-            disabled={checked ? true : false}
+            onChange={jobFormat.handleInputChange}
+            disabled={jobForm.stillWorking}
             required
           />
         </label>
@@ -76,8 +62,8 @@ export default function JobForm({
             type="checkbox"
             name="stillWorking"
             id="stillWorking"
-            onChange={onChecked}
-            checked={checked}
+            onChange={jobFormat.toggleStillWorking}
+            checked={jobForm.stillWorking}
           />
         </label>
         <label htmlFor="contributions">
@@ -85,10 +71,10 @@ export default function JobForm({
           <textarea
             type="text"
             name="contributions"
-            value={jobExperience.contributions}
+            value={jobForm.contributions}
             id="contributions"
             placeholder="List your contributions to the company with # seperator e.g: Oversaw ingredient sourcing#Managed Inventory control#Assisted in cost management"
-            onChange={onChange}
+            onChange={jobFormat.handleInputChange}
             style={{
               maxHeight: "7em",
               height: "7em",

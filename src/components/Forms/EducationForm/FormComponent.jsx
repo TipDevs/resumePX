@@ -1,28 +1,16 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function EducationForm({
-  education,
-  callback,
-  toggler,
-  onChange,
-  cancelForm,
-}) {
+export default function EducationForm({educationFormat}) {
+  const educationForm = educationFormat.educationForm;
   return (
     <>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          callback();
-          e.target.reset();
-        }}
+        onSubmit={educationFormat.onSubmit}
         id="educationForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
           size="xl"
-          onClick={(e) => {
-            const targetElement = e.currentTarget;
-            cancelForm(targetElement, toggler);
-          }}
+          onClick={educationFormat.cancelForm}
           style={{ cursor: "pointer" }}
         />
         <label htmlFor="certification">
@@ -31,9 +19,9 @@ export default function EducationForm({
             type="text"
             id="certification"
             name="certification"
-            value={education.certification}
+            value={educationForm.certification}
             placeholder="Specify certificate acquired"
-            onChange={onChange}
+            onChange={educationFormat.handleInputChange}
             required
           />
         </label>
@@ -43,22 +31,22 @@ export default function EducationForm({
             type="text"
             id="institution"
             name="institution"
-            value={education.institution}
+            value={educationForm.institution}
             placeholder="Enter the name of your Institution"
-            onChange={onChange}
+            onChange={educationFormat.handleInputChange}
             required
           />
         </label>
 
-        <label htmlFor="convocationYear">
+        <label htmlFor="admissionYear">
           Admission Year:{" "}
           <input
             type="text"
-            name="convocationYear"
-            value={education.convocationYear.trim()}
-            id="convocationYear"
+            name="admissionYear"
+            value={educationForm.admissionYear}
+            id="Year"
             placeholder="Enter the year you got admission"
-            onChange={onChange}
+            onChange={educationFormat.handleInputChange}
             required
           />
         </label>
@@ -67,10 +55,10 @@ export default function EducationForm({
           <input
             type="text"
             name="graduationYear"
-            value={education.graduationYear.trim()}
+            value={educationForm.graduationYear}
             id="graduationYear"
             placeholder="Enter the year you graduated"
-            onChange={onChange}
+            onChange={educationFormat.handleInputChange}
             required
           />
         </label>
