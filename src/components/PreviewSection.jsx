@@ -7,16 +7,17 @@ export default function PreviewSection({
   storedEducation,
   storedJobs,
   contentRef,
-  ...props
+  skills,
+  generalData
 }) {
   return (
     <section id="preview">
       <h2>Preview</h2>
       <section id="CV" ref={contentRef}>
-        <GeneralPreview generalData={props.generalData} />
+        <GeneralPreview generalData={generalData} />
         <EducationPreview storedEducation={storedEducation} />
         <JobExperiencePreview storedJobs={storedJobs} />
-        <SkillsPreview skills={props.skills} />
+        <SkillsPreview skills={skills} />
       </section>
     </section>
   );
