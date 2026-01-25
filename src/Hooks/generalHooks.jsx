@@ -5,6 +5,7 @@ const initialGeneralData = {
     address: "",
     phone: "",
     description: "",
+    email: "",
 }
 
 export default function useGeneral() {
