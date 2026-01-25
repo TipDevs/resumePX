@@ -37,8 +37,7 @@ export default function useJobExperience() {
         const jobToEdit = storedJobs.find((job) => job.id === id);
         setJobForm(jobToEdit);
     }
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
         if(formMode === "Add") {
             setStoredJobs((prev) => ([
                 ...prev,
