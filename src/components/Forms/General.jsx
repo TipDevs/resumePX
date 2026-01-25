@@ -78,7 +78,7 @@ export default function General({ onChange, generalData }) {
                 outline: "none",
                 border: "none",
                 padding: "5px",
-                maxWidth: "510.500px",
+                maxWidth: "100%",
               }}></textarea>
           </label>
         </form>

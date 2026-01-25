@@ -102,7 +102,7 @@ export default function JobForm({jobFormat}) {
               outline: "none",
               border: "none",
               padding: "5px",
-              maxWidth: "510.500px",
+              maxWidth: "100%",
             }}></textarea>
         </label>
         <p style={{display: errorMessage === "" && "none", color: "red"}}>{errorMessage}</p>
