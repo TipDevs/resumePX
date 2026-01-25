@@ -34,8 +34,8 @@ export default function useJobExperience() {
     }
     const editJob = (id) => {
         setFormMode("Edit");
-        const jobToEdit = storedJobs.filter((job) => job.id === id);
-        setJobForm(jobToEdit[0]);
+        const jobToEdit = storedJobs.find((job) => job.id === id);
+        setJobForm(jobToEdit);
     }
     const onSubmit = (e) => {
         e.preventDefault();
@@ -55,6 +55,9 @@ export default function useJobExperience() {
         setFormMode("off");
         setJobForm(initialJobExperience);
     }
+    const deleteJob = (id) => {
+        setStoredJobs((prev) => prev.filter((job) => job.id !== id));
+    }
     return {
         handleInputChange,
         toggleStillWorking,
@@ -65,5 +68,6 @@ export default function useJobExperience() {
         formMode,
         storedJobs,
         cancelForm,
+        deleteJob,
     }
 }
