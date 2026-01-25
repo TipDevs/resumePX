@@ -1,11 +1,23 @@
+import { useState } from "react";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function JobForm({jobFormat}) {
   const jobForm = jobFormat.jobForm;
+  const [errorMessage, setErrorMessage] = useState("");
   return (
     <>
       <form
-        onSubmit={jobFormat.onSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+        if((jobForm.contributions.length >= 1) && (jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#")) {
+          setErrorMessage(`Contributions can't start or end with "#"`);
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 1500);
+          return;
+        }
+        jobFormat.onSubmit()
+        }}
         id="jobExperienceForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
@@ -74,7 +86,16 @@ export default function JobForm({jobFormat}) {
             value={jobForm.contributions}
             id="contributions"
             placeholder="List your contributions to the company with # seperator e.g: Oversaw ingredient sourcing#Managed Inventory control#Assisted in cost management"
-            onChange={jobFormat.handleInputChange}
+            onChange={(e) => {
+              jobFormat.handleInputChange(e)
+              //  if((jobForm.contributions !== "") && jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#") {
+              //   setErrorMessage(`Contributions can't start or end with "#"`);
+              //   setTimeout(() => {
+              //     setErrorMessage("");
+              //   }, 1000);
+              //   return;
+              //   }
+              }}
             style={{
               maxHeight: "7em",
               height: "7em",
@@ -84,6 +105,7 @@ export default function JobForm({jobFormat}) {
               maxWidth: "510.500px",
             }}></textarea>
         </label>
+        <p style={{display: errorMessage === "" && "none", color: "red"}}>{errorMessage}</p>
         <button type="submit">Submit</button>
       </form>
     </>
