@@ -6,6 +6,7 @@
   align-items: center;
   flex: 1;
   flex-basis: 350px;
+  position: relative;
 }
 section#general,
 section#education,
@@ -86,4 +87,18 @@ section > #jobs_list_table > #jobs_list > ul > li > ul {
     list-style: none;
     color: #fee2d8ff;
     flex: 2.5;
+}
+
+@media(max-width: 768px) {
+  #input_field > h2 {
+    display: none;
+  }
+
+  #input_field.on_preview{
+    filter: blur(10);
+    background-color: rgba(254, 226, 216, 0.452);
+  }
+  #input_field.on_preview > * {
+    visibility: hidden;
+  }
 }
