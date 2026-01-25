@@ -1,4 +1,3 @@
-// import { useState } from "react";
 export default function General({ onChange, generalData }) {
   return (
     <>
@@ -11,7 +10,7 @@ export default function General({ onChange, generalData }) {
               type="text"
               id="firstName"
               name="firstName"
-              value={generalData.firstName.trim()}
+              value={generalData.firstName}
               placeholder="Enter your first name"
               onChange={onChange}
               required
@@ -23,7 +22,7 @@ export default function General({ onChange, generalData }) {
               type="text"
               id="lastName"
               name="lastName"
-              value={generalData.lastName.trim()}
+              value={generalData.lastName}
               placeholder="Enter your last name"
               onChange={onChange}
               required
@@ -35,7 +34,7 @@ export default function General({ onChange, generalData }) {
               type="email"
               id="email"
               name="email"
-              value={generalData.email.trim()}
+              value={generalData.email}
               placeholder="Enter your email address"
               onChange={onChange}
               required
@@ -47,7 +46,7 @@ export default function General({ onChange, generalData }) {
               type="tel"
               id="phone"
               name="phone"
-              value={generalData.phone.trim()}
+              value={generalData.phone}
               placeholder="Enter your phone number"
               onChange={onChange}
               inputMode="numeric"
@@ -79,7 +78,7 @@ export default function General({ onChange, generalData }) {
                 outline: "none",
                 border: "none",
                 padding: "5px",
-                maxWidth: "510.500px",
+                maxWidth: "100%",
               }}></textarea>
           </label>
         </form>

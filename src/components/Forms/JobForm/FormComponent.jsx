@@ -1,30 +1,28 @@
+import { useState } from "react";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function JobForm({
-  jobExperience,
-  callback,
-  toggler,
-  onChange,
-  cancelForm,
-  checked,
-  onChecked,
-}) {
+export default function JobForm({jobFormat}) {
+  const jobForm = jobFormat.jobForm;
+  const [errorMessage, setErrorMessage] = useState("");
   return (
     <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          callback();
-          e.target.reset();
+        if((jobForm.contributions.length >= 1) && (jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#")) {
+          setErrorMessage(`Contributions can't start or end with "#"`);
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 1500);
+          return;
+        }
+        jobFormat.onSubmit()
         }}
         id="jobExperienceForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
           size="xl"
-          onClick={(e) => {
-            const targetElement = e.currentTarget;
-            cancelForm(targetElement, toggler);
-          }}
+          onClick={jobFormat.cancelForm}
           style={{ cursor: "pointer" }}
         />
         <label htmlFor="companyName">
@@ -32,10 +30,10 @@ export default function JobForm({
           <input
             type="text"
             name="company"
-            value={jobExperience.company}
+            value={jobForm.company}
             id="companyName"
             placeholder="Enter the name of company worked for..."
-            onChange={onChange}
+            onChange={jobFormat.handleInputChange}
             required
           />
         </label>
@@ -44,10 +42,10 @@ export default function JobForm({
           <input
             type="text"
             name="employmentYear"
-            value={jobExperience.employmentYear.trim()}
+            value={jobForm.employmentYear}
             id="employmentYear"
             placeholder="Enter employment year"
-            onChange={onChange}
+            onChange={jobFormat.handleInputChange}
             required
           />
         </label>
@@ -56,11 +54,11 @@ export default function JobForm({
           <input
             type="text"
             name="endYear"
-            value={jobExperience.endYear.trim()}
+            value={jobForm.endYear}
             id="endYear"
             placeholder="Enter year of leaving job"
-            onChange={onChange}
-            disabled={checked ? true : false}
+            onChange={jobFormat.handleInputChange}
+            disabled={jobForm.stillWorking}
             required
           />
         </label>
@@ -76,8 +74,8 @@ export default function JobForm({
             type="checkbox"
             name="stillWorking"
             id="stillWorking"
-            onChange={onChecked}
-            checked={checked}
+            onChange={jobFormat.toggleStillWorking}
+            checked={jobForm.stillWorking}
           />
         </label>
         <label htmlFor="contributions">
@@ -85,19 +83,29 @@ export default function JobForm({
           <textarea
             type="text"
             name="contributions"
-            value={jobExperience.contributions}
+            value={jobForm.contributions}
             id="contributions"
             placeholder="List your contributions to the company with # seperator e.g: Oversaw ingredient sourcing#Managed Inventory control#Assisted in cost management"
-            onChange={onChange}
+            onChange={(e) => {
+              jobFormat.handleInputChange(e)
+              //  if((jobForm.contributions !== "") && jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#") {
+              //   setErrorMessage(`Contributions can't start or end with "#"`);
+              //   setTimeout(() => {
+              //     setErrorMessage("");
+              //   }, 1000);
+              //   return;
+              //   }
+              }}
             style={{
               maxHeight: "7em",
               height: "7em",
               outline: "none",
               border: "none",
               padding: "5px",
-              maxWidth: "510.500px",
+              maxWidth: "100%",
             }}></textarea>
         </label>
+        <p style={{display: errorMessage === "" && "none", color: "red"}}>{errorMessage}</p>
         <button type="submit">Submit</button>
       </form>
     </>

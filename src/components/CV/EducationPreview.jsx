@@ -12,7 +12,7 @@ export default function EducationPreview({ storedEducation }) {
       />
       {storedEducation.map((education) => {
         const wholeSession =
-          education.convocationYear + " - " + education.graduationYear;
+          education.admissionYear + " - " + education.graduationYear;
         return (
           <ul key={education.id + "education"}>
             <li id="certification">

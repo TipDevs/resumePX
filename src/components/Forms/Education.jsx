@@ -5,61 +5,17 @@ import {
   faCircleXmark,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import useToggleForm from "../../Hooks/toggleForm";
-import { useState } from "react";
-export default function Education({
-  cancelForm,
-  onChange,
-  storedEducation,
-  addNewEducation,
-  education,
-  deleteEducation,
-  editEducation,
-}) {
-  const [educationToBeEdit, setEducationToBeEdit] = useState(null);
-  const {
-    showNewEntryForm,
-    toggleNewEntryForm,
-    showEditEntryForm,
-    toggleEditEntryForm,
-  } = useToggleForm(false);
+export default function Education({educationFormat}) {
   return (
     <>
       <section id="education">
         <h2>Education</h2>
-        {showNewEntryForm ? (
-          <EducationForm
-            education={education}
-            toggler={toggleNewEntryForm}
-            callback={() => {
-              addNewEducation({ callBack: toggleNewEntryForm });
-            }}
-            onChange={(e) => {
-              onChange(e);
-            }}
-            cancelForm={cancelForm}></EducationForm>
-        ) : showEditEntryForm ? (
-          <EducationForm
-            education={educationToBeEdit}
-            callback={() => {
-              editEducation({
-                educationToBeEdit: educationToBeEdit,
-                callBack: toggleEditEntryForm,
-              });
-            }}
-            toggler={toggleEditEntryForm}
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setEducationToBeEdit((prev) => ({
-                ...prev,
-                [name]: value,
-              }));
-            }}
-            cancelForm={cancelForm}></EducationForm>
+        {educationFormat.formMode !== "off" ? (
+          <EducationForm educationFormat={educationFormat}/>
         ) : (
           <div id="education_list_table">
             <div id="education_list">
-              {storedEducation.length === 0 ? (
+              {educationFormat.storedEducations.length === 0 ? (
                 <FontAwesomeIcon
                   icon={faSchool}
                   beatFade
@@ -67,7 +23,7 @@ export default function Education({
                   style={{ color: "#da6752", alignSelf: "center" }}
                 />
               ) : (
-                storedEducation.map((education) => {
+                educationFormat.storedEducations.map((education) => {
                   return (
                     <ul key={education.id}>
                       <li>
@@ -80,10 +36,8 @@ export default function Education({
                             <FontAwesomeIcon
                               icon={faEdit}
                               size="xl"
-                              onClick={(e) => {
-                                e.currentTarget;
-                                setEducationToBeEdit(() => education);
-                                toggleEditEntryForm();
+                              onClick={() => {
+                                educationFormat.editEducation(education.id);
                               }}
                               style={{ cursor: "pointer", color: "#fee2d8ff" }}
                             />
@@ -98,7 +52,7 @@ export default function Education({
                             <h6 style={{ display: "inline", fontSize: "1rem" }}>
                               Admission Year:
                             </h6>{" "}
-                            {education.convocationYear}
+                            {education.admissionYear}
                           </li>
                           <li>
                             <h6 style={{ display: "inline", fontSize: "1rem" }}>
@@ -112,9 +66,8 @@ export default function Education({
                         <FontAwesomeIcon
                           icon={faCircleXmark}
                           size="xl"
-                          onClick={(e) => {
-                            e.currentTarget;
-                            deleteEducation(education.id);
+                          onClick={() => {
+                            educationFormat.deleteEducation(education.id);
                           }}
                           style={{ cursor: "pointer", color: "#fee2d8ff" }}
                         />
@@ -124,7 +77,7 @@ export default function Education({
                 })
               )}
             </div>
-            <button onClick={toggleNewEntryForm}>Add Education</button>
+            <button onClick={educationFormat.addNewEducation}>Add Education</button>
           </div>
         )}
       </section>

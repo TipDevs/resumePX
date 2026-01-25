@@ -11,7 +11,8 @@ export default function SkillsPreview({ skills }) {
         }}
       />
       <ul style={{padding: "5px 15px", paddingRight: "0"}}>
-        {skills.split("#").map((skill) => (
+        { 
+        (skills[0] !== "#" && skills[skills.length - 1] !== "#") && skills.split("#").map((skill) => (
           <li key={skill}>{skill}</li>
         ))}
       </ul>
