@@ -1,13 +1,32 @@
 import { Fragment } from "react";
-
-export default function GeneralPreview({ generalData }) {
+import { pubsub } from "../../infrastructure/pubsub";
+import { EVENTS } from "../../infrastructure/events";
+import { useState, useEffect } from "react";
+export default function GeneralPreview() {
+  const [generalData, setGeneralData] = useState({
+    firstName: "",
+    lastName: "",
+    residenceAddress: "",
+    phoneNumber: "",
+    description: "",
+    emailAddress: "",
+  });
+  useEffect(() => {
+    const token = pubsub.subscribe(
+      EVENTS.GENERALDATA_UPDATED,
+      (data, topic) => {
+        setGeneralData(data);
+      },
+    );
+    return () => pubsub.unsubscribe(token);
+  });
   const fullName = generalData.firstName + " " + generalData.lastName;
   return (
     <>
       <div id="generalPreview">
         {fullName !== "" ? <h3 id="fullName">{fullName}</h3> : null}
 
-        {generalData.address !== "" ? (
+        {generalData.residenceAddress !== "" ? (
           <p
             id="address"
             style={{
@@ -19,11 +38,13 @@ export default function GeneralPreview({ generalData }) {
               textAlign: "center",
             }}>
             <span style={{ fontWeight: "bold" }}>Address:</span>{" "}
-            {generalData.address}
+            {generalData.residenceAddress}
           </p>
         ) : null}
-        {generalData.phone !== "" ? (
-          <p id="phoneNumber" style={{
+        {generalData.phoneNumber !== "" ? (
+          <p
+            id="phoneNumber"
+            style={{
               fontSize: "1.2rem",
               fontWeight: "lighter",
               marginTop: "3px",
@@ -31,11 +52,14 @@ export default function GeneralPreview({ generalData }) {
               overflowWrap: "break-word",
               textAlign: "center",
             }}>
-            <span style={{ fontWeight: "bold" }}>Tel:</span> {generalData.phone}
+            <span style={{ fontWeight: "bold" }}>Tel:</span>{" "}
+            {generalData.phoneNumber}
           </p>
         ) : null}
-        {generalData.email !== "" ? (
-          <p id="email" style={{
+        {generalData.emailAddress !== "" ? (
+          <p
+            id="email"
+            style={{
               fontSize: "1.05rem",
               fontWeight: "lighter",
               marginTop: "3px",
@@ -43,13 +67,15 @@ export default function GeneralPreview({ generalData }) {
               overflowWrap: "break-word",
               textAlign: "center",
             }}>
-            <span style={{ fontWeight: "bold", textDecoration: "none" }}>Email:</span>{" "}
-            <a href={generalData.email}>{generalData.email}</a>
+            <span style={{ fontWeight: "bold", textDecoration: "none" }}>
+              Email:
+            </span>{" "}
+            <a href={generalData.email}>{generalData.emailAddress}</a>
           </p>
         ) : null}
         {generalData.description !== "" ? (
           <Fragment>
-            <h4 style={{color: "green"}}>Professional Description</h4>
+            <h4 style={{ color: "green" }}>Professional Description</h4>
             <hr
               style={{
                 width: "90%",

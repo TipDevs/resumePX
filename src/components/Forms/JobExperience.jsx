@@ -4,16 +4,31 @@ import {
   faCircleXmark,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import JobForm from "./JobForm/FormComponent"
-export default function JobExperience({jobFormat}) {
+import useJobExperience from "../../Hooks/jobHooks";
+import JobForm from "./JobForm/FormComponent";
+import DisplayError from "../displayError";
+export default function JobExperience() {
+  const {
+    handleInputChange,
+    toggleStillWorking,
+    addNewJob,
+    editJob,
+    jobForm,
+    onSubmit,
+    formMode,
+    storedJobs,
+    cancelForm,
+    deleteJob,
+    errorMessage,
+  } = useJobExperience();
   return (
     <>
       <section id="jobExperience">
         <h2>Job Experience</h2>
-        {jobFormat.formMode === "off" ? (
+        {formMode === "off" ? (
           <div id="jobs_list_table">
             <div id="jobs_list">
-              {jobFormat.storedJobs.length === 0 ? (
+              {storedJobs.length === 0 ? (
                 <FontAwesomeIcon
                   icon={faBriefcase}
                   beatFade
@@ -21,7 +36,7 @@ export default function JobExperience({jobFormat}) {
                   style={{ color: "#da6752", alignSelf: "center" }}
                 />
               ) : (
-                jobFormat.storedJobs.map((job) => {
+                storedJobs.map((job) => {
                   return (
                     <ul key={job.id}>
                       <li className="info">
@@ -35,7 +50,9 @@ export default function JobExperience({jobFormat}) {
                               icon={faEdit}
                               id={job.id}
                               size="xl"
-                              onClick={() => {jobFormat.editJob(job.id)}}
+                              onClick={() => {
+                                editJob(job.id);
+                              }}
                               style={{ cursor: "pointer", color: "#fee2d8ff" }}
                             />
                           </li>
@@ -76,7 +93,9 @@ export default function JobExperience({jobFormat}) {
                         <FontAwesomeIcon
                           icon={faCircleXmark}
                           size="xl"
-                          onClick={() => {jobFormat.deleteJob(job.id)}}
+                          onClick={() => {
+                            deleteJob(job.id);
+                          }}
                           style={{ cursor: "pointer", color: "#fee2d8ff" }}
                         />
                       </li>
@@ -85,9 +104,12 @@ export default function JobExperience({jobFormat}) {
                 })
               )}
             </div>
-            <button onClick={jobFormat.addNewJob}>Add Job</button>
+            <button onClick={addNewJob}>Add Job</button>
           </div>
-        ) : (<JobForm jobFormat={jobFormat}/>)}
+        ) : (
+          <JobForm handleInputChange={handleInputChange} toggleStillWorking={toggleStillWorking} jobForm={jobForm} onSubmit={onSubmit} cancelForm={cancelForm} errorMessage={errorMessage} />
+        )}
+        <DisplayError errorMessage={errorMessage}/>
       </section>
     </>
   );

@@ -1,4 +1,7 @@
-export default function General({ onChange, generalData }) {
+import useGeneral from "../../Hooks/generalHooks";
+import DisplayError from "../displayError";
+export default function General() {
+  const { generalForm, handleInputChange, errorMessage } = useGeneral();
   return (
     <>
       <section id="general">
@@ -10,9 +13,11 @@ export default function General({ onChange, generalData }) {
               type="text"
               id="firstName"
               name="firstName"
-              value={generalData.firstName}
+              value={generalForm.firstName}
               placeholder="Enter your first name"
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
               required
             />
           </label>
@@ -22,45 +27,53 @@ export default function General({ onChange, generalData }) {
               type="text"
               id="lastName"
               name="lastName"
-              value={generalData.lastName}
+              value={generalForm.lastName}
               placeholder="Enter your last name"
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
               required
             />
           </label>
-          <label htmlFor="email">
+          <label htmlFor="emailAddress">
             Email:{" "}
             <input
               type="email"
-              id="email"
-              name="email"
-              value={generalData.email}
+              id="emailAddress"
+              name="emailAddress"
+              value={generalForm.emailAddress}
               placeholder="Enter your email address"
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
               required
             />
           </label>
-          <label htmlFor="phone">
+          <label htmlFor="phoneNumber">
             Phone Number:{" "}
             <input
               type="tel"
-              id="phone"
-              name="phone"
-              value={generalData.phone}
+              id="phoneNumber"
+              name="phoneNumber"
+              value={generalForm.phoneNumber}
               placeholder="Enter your phone number"
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
               inputMode="numeric"
             />
           </label>
-          <label htmlFor="address">
-            Home Address:{" "}
+          <label htmlFor="residenceAddress">
+            Residence Address:{" "}
             <input
               type="text"
-              id="address"
-              name="address"
-              value={generalData.address}
+              id="residenceAddress"
+              name="residenceAddress"
+              value={generalForm.residenceAddress}
               placeholder="Enter your home address"
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
             />
           </label>
           <label htmlFor="description">
@@ -69,9 +82,11 @@ export default function General({ onChange, generalData }) {
               type="text"
               id="description"
               name="description"
-              value={generalData.description}
+              value={generalForm.description}
               placeholder="Write about yourself..."
-              onChange={onChange}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
               style={{
                 maxHeight: "7em",
                 height: "7em",
@@ -82,6 +97,7 @@ export default function General({ onChange, generalData }) {
               }}></textarea>
           </label>
         </form>
+        <DisplayError errorMessage={errorMessage} />
       </section>
     </>
   );

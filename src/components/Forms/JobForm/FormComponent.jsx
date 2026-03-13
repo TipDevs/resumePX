@@ -1,28 +1,18 @@
-import { useState } from "react";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function JobForm({jobFormat}) {
-  const jobForm = jobFormat.jobForm;
-  const [errorMessage, setErrorMessage] = useState("");
+export default function JobForm({handleInputChange, toggleStillWorking, jobForm, onSubmit, cancelForm, errorMessage}) {
   return (
     <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-        if((jobForm.contributions.length >= 1) && (jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#")) {
-          setErrorMessage(`Contributions can't start or end with "#"`);
-          setTimeout(() => {
-            setErrorMessage("");
-          }, 1500);
-          return;
-        }
-        jobFormat.onSubmit()
+          onSubmit();
         }}
         id="jobExperienceForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
           size="xl"
-          onClick={jobFormat.cancelForm}
+          onClick={cancelForm}
           style={{ cursor: "pointer" }}
         />
         <label htmlFor="companyName">
@@ -33,7 +23,7 @@ export default function JobForm({jobFormat}) {
             value={jobForm.company}
             id="companyName"
             placeholder="Enter the name of company worked for..."
-            onChange={jobFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>
@@ -45,7 +35,7 @@ export default function JobForm({jobFormat}) {
             value={jobForm.employmentYear}
             id="employmentYear"
             placeholder="Enter employment year"
-            onChange={jobFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>
@@ -57,7 +47,7 @@ export default function JobForm({jobFormat}) {
             value={jobForm.endYear}
             id="endYear"
             placeholder="Enter year of leaving job"
-            onChange={jobFormat.handleInputChange}
+            onChange={handleInputChange}
             disabled={jobForm.stillWorking}
             required
           />
@@ -74,7 +64,7 @@ export default function JobForm({jobFormat}) {
             type="checkbox"
             name="stillWorking"
             id="stillWorking"
-            onChange={jobFormat.toggleStillWorking}
+            onChange={toggleStillWorking}
             checked={jobForm.stillWorking}
           />
         </label>
@@ -87,14 +77,7 @@ export default function JobForm({jobFormat}) {
             id="contributions"
             placeholder="List your contributions to the company with # seperator e.g: Oversaw ingredient sourcing#Managed Inventory control#Assisted in cost management"
             onChange={(e) => {
-              jobFormat.handleInputChange(e)
-              //  if((jobForm.contributions !== "") && jobForm.contributions[0] === "#" || jobForm.contributions[jobForm.contributions.length - 1] === "#") {
-              //   setErrorMessage(`Contributions can't start or end with "#"`);
-              //   setTimeout(() => {
-              //     setErrorMessage("");
-              //   }, 1000);
-              //   return;
-              //   }
+              handleInputChange(e)
               }}
             style={{
               maxHeight: "7em",

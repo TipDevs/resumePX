@@ -1,16 +1,15 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function EducationForm({educationFormat}) {
-  const educationForm = educationFormat.educationForm;
+export default function EducationForm({handleInputChange, onSubmit, cancelForm, educationForm }) {
   return (
     <>
       <form
-        onSubmit={educationFormat.onSubmit}
+        onSubmit={onSubmit}
         id="educationForm">
         <FontAwesomeIcon
           icon={faCircleXmark}
           size="xl"
-          onClick={educationFormat.cancelForm}
+          onClick={cancelForm}
           style={{ cursor: "pointer" }}
         />
         <label htmlFor="certification">
@@ -21,7 +20,7 @@ export default function EducationForm({educationFormat}) {
             name="certification"
             value={educationForm.certification}
             placeholder="Specify certificate acquired"
-            onChange={educationFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>
@@ -33,7 +32,7 @@ export default function EducationForm({educationFormat}) {
             name="institution"
             value={educationForm.institution}
             placeholder="Enter the name of your Institution"
-            onChange={educationFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>
@@ -44,9 +43,9 @@ export default function EducationForm({educationFormat}) {
             type="text"
             name="admissionYear"
             value={educationForm.admissionYear}
-            id="Year"
+            id="admissionYear"
             placeholder="Enter the year you got admission"
-            onChange={educationFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>
@@ -58,7 +57,7 @@ export default function EducationForm({educationFormat}) {
             value={educationForm.graduationYear}
             id="graduationYear"
             placeholder="Enter the year you graduated"
-            onChange={educationFormat.handleInputChange}
+            onChange={handleInputChange}
             required
           />
         </label>

@@ -5,17 +5,36 @@ import {
   faCircleXmark,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-export default function Education({educationFormat}) {
+import useEducation from "../../Hooks/educationHooks";
+import DisplayError from "../displayError";
+export default function Education() {
+  const {
+    handleInputChange,
+    addNewEducation,
+    editEducation,
+    onSubmit,
+    deleteEducation,
+    cancelForm,
+    formMode,
+    educationForm,
+    storedEducations,
+    errorMessage,
+  } = useEducation();
   return (
     <>
       <section id="education">
         <h2>Education</h2>
-        {educationFormat.formMode !== "off" ? (
-          <EducationForm educationFormat={educationFormat}/>
+        {formMode !== "off" ? (
+          <EducationForm
+            handleInputChange={handleInputChange}
+            onSubmit={onSubmit}
+            cancelForm={cancelForm}
+            educationForm={educationForm}
+          />
         ) : (
           <div id="education_list_table">
             <div id="education_list">
-              {educationFormat.storedEducations.length === 0 ? (
+              {storedEducations.length === 0 ? (
                 <FontAwesomeIcon
                   icon={faSchool}
                   beatFade
@@ -23,7 +42,7 @@ export default function Education({educationFormat}) {
                   style={{ color: "#da6752", alignSelf: "center" }}
                 />
               ) : (
-                educationFormat.storedEducations.map((education) => {
+                storedEducations.map((education) => {
                   return (
                     <ul key={education.id}>
                       <li>
@@ -37,7 +56,7 @@ export default function Education({educationFormat}) {
                               icon={faEdit}
                               size="xl"
                               onClick={() => {
-                                educationFormat.editEducation(education.id);
+                                editEducation(education.id);
                               }}
                               style={{ cursor: "pointer", color: "#fee2d8ff" }}
                             />
@@ -67,7 +86,7 @@ export default function Education({educationFormat}) {
                           icon={faCircleXmark}
                           size="xl"
                           onClick={() => {
-                            educationFormat.deleteEducation(education.id);
+                            deleteEducation(education.id);
                           }}
                           style={{ cursor: "pointer", color: "#fee2d8ff" }}
                         />
@@ -77,9 +96,10 @@ export default function Education({educationFormat}) {
                 })
               )}
             </div>
-            <button onClick={educationFormat.addNewEducation}>Add Education</button>
+            <button onClick={addNewEducation}>Add Education</button>
           </div>
         )}
+        <DisplayError errorMessage={errorMessage} />
       </section>
     </>
   );
