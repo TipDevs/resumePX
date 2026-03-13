@@ -1,7 +1,17 @@
-export default function EducationPreview({ storedEducation }) {
+import { useState, useEffect } from "react";
+import { pubsub } from "../../infrastructure/pubsub";
+import { EVENTS } from "../../infrastructure/events";
+export default function EducationPreview() {
+  const [storedEducation, setStoredEducation] = useState([]);
+  useEffect(() => {
+    const token = pubsub.subscribe(EVENTS.EDUCATIONS_UPDATED, (data, topic) => {
+      setStoredEducation(data);
+    });
+    return () => pubsub.unsubscribe(token);
+  });
   return storedEducation.length <= 0 ? null : (
     <div id="educationPreview">
-      <h4 style={{color: "green"}}>Education</h4>
+      <h4 style={{ color: "green" }}>Education</h4>
       <hr
         style={{
           width: "85%",

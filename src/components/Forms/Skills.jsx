@@ -1,29 +1,20 @@
-import { useState } from "react";
-export default function Skills({skillsFormat}) {
-  const [errorMessage, setErrorMessage] = useState("");
-  function handleError() {
-    if(skillsFormat.skillsForm[0] === "#" && skillsFormat.skillsForm[skillsFormat.skillsForm.length - 1] === "#") {
-      setErrorMessage(`Skills can't start or end with "#"`);
-      
-    }
-    setTimeout(() => {
-        setErrorMessage("");
-      }, 1500);
-  }
+import useSkills from "../../Hooks/skillsHooks";
+import DisplayError from "../displayError";
+export default function Skills() {
+  const {skillsForm, handleInputChange, errorMessage} = useSkills();
   return (
     <section id="skills">
       <form action="">
-        <label htmlFor="skills">
+        <label htmlFor="skillsForm">
           Skills:{" "}
           <textarea
             type="text"
-            id="skills"
-            name="skills"
-            value={skillsFormat.skillsForm}
+            id="skillsForm"
+            name="skill"
+            value={skillsForm}
             placeholder="List your skills with # seperator e.g Communication skill#JavaScript#Recipe Management"
             onChange={(e) => {
-              skillsFormat.handleInputChange(e);
-              skillsFormat.skillsForm.length !== "" && handleError();
+              handleInputChange(e);
             }}
             style={{
               maxHeight: "7em",
@@ -34,8 +25,8 @@ export default function Skills({skillsFormat}) {
               maxWidth: "100%",
             }}></textarea>
         </label>
-        <p style={{display: errorMessage === "" && "none", color: "red"}}>{errorMessage}</p>
       </form>
+      <DisplayError errorMessage={errorMessage}/>
     </section>
   );
 }
